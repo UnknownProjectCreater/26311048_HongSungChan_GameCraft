@@ -1,0 +1,11 @@
+#include <iostream>
+#include "glc2d.h"
+
+using namespace std;
+
+int main()
+{
+
+
+	return 0;
+}
