@@ -14,9 +14,7 @@ Time::Time()
 
 int Time::Init()
 {
-	beginTime		= {};
-	eplapsedTime	= {};
-	deltaTime		= {};
+	deltaTime = {};
 
 	return 0;
 }
