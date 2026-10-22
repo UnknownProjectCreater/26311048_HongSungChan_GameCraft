@@ -14,7 +14,7 @@ public:
 		float screenScale;
 	};
 
-	int Init();
+	int Init(GameWindow* window);
 	void Destroy();
 
 	int Run();

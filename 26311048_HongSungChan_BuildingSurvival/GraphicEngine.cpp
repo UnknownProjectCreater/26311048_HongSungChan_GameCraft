@@ -28,7 +28,7 @@ int GraphicEngine::Render()
     return g_pApp->Render();
 }
 
-int GraphicEngine::Init()
+int GraphicEngine::Init(GameWindow* window)
 {
     auto hr = g2_InitSdk();
     if (0 > hr)
@@ -37,7 +37,18 @@ int GraphicEngine::Init()
     g2_SetFrameMove(Update);
     g2_SetRender(Render);
 
-	g2_CreateWin();
+	hr = g2_CreateWin(window->x,
+                      window->y,
+                      window->screenWidth,
+                      window->screenHeight,
+                      window->screenName,
+                      window->bWindowed,
+                      window->screenScale);
+
+    if (0 > hr)
+        return -2;
+
+    printf("Starting ...\n\n");
 
 	return 0;
 }

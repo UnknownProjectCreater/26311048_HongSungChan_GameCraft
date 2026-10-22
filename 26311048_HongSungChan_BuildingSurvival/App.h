@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <unordered_map>
+#include "Scene.h"
 #include "Time.h"
 #include "GraphicEngine.h"
 
@@ -24,14 +27,23 @@ protected:
 	GameInput* m_pGameInput				{};
 	Scene* m_pCurrentScene				{};
 	Time m_gameTime						{};
+
+	std::unordered_map<GamePhase, Scene*> m_scenes;
+
+public:
+	void ChageScene(GamePhase nextScene);
+	bool m_sceneChanged;
+	GamePhase m_sceneCurrent	{};
+	GamePhase m_sceneNext		{};
+
 public:
 	App();
 	virtual ~App();
 
-	int Init();
-	void Destroy();
-	int Render();
-	int Update();
+	virtual int Init();
+	virtual void Destroy();
+	virtual int Render();
+	virtual int Update();
 
 	int Run();
 };
