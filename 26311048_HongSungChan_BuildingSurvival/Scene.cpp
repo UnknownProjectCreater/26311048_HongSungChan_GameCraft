@@ -1,5 +1,10 @@
 #include "Scene.h"
 
+Scene::Scene()
+{
+	
+}
+
 int Scene::Init()
 {
 	return 0;

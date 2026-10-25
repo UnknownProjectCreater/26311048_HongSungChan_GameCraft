@@ -103,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,6 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,23 +127,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionSystem.cpp" />
+    <ClCompile Include="CombatSystem.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameInput.cpp" />
-    <ClCompile Include="GameStartScene.cpp" />
     <ClCompile Include="GraphicEngine.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneBegin.cpp" />
+    <ClCompile Include="SceneStart.cpp" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="_main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionSystem.h" />
+    <ClInclude Include="CombatSystem.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameInput.h" />
+    <ClInclude Include="GraphicEngine.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneBegin.h" />
+    <ClInclude Include="SceneStart.h" />
+    <ClInclude Include="Time.h" />
+    <ClInclude Include="UIManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="App.h" />
-    <ClInclude Include="GameInput.h" />
-    <ClInclude Include="GameStartScene.h" />
-    <ClInclude Include="GraphicEngine.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Time.h" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
@@ -151,7 +169,7 @@
     <PropertyGroup>
       <ErrorText>이 프로젝트는 이 컴퓨터에 없는 NuGet 패키지를 참조합니다. 해당 패키지를 다운로드하려면 NuGet 패키지 복원을 사용하십시오. 자세한 내용은 http://go.microsoft.com/fwlink/?LinkID=322105를 참조하십시오. 누락된 파일은 {0}입니다.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\glc2d.0.1.0.8\build\native\glc2d.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\glc2d.0.1.0.8\build\native\glc2d.props'))" />
     <Error Condition="!Exists('packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets'))" />
+    <Error Condition="!Exists('packages\glc2d.0.1.0.8\build\native\glc2d.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\glc2d.0.1.0.8\build\native\glc2d.props'))" />
   </Target>
 </Project>
