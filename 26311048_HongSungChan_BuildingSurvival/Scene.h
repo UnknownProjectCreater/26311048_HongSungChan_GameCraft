@@ -23,4 +23,6 @@ public:
 	virtual void Destroy();
 	virtual int Render();
 	virtual int Update();
+
+	
 };

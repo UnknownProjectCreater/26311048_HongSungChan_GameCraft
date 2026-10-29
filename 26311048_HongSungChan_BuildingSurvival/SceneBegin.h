@@ -5,6 +5,7 @@ class SceneBegin : public Scene
 {
 public:
 	SceneBegin();
+	virtual ~SceneBegin() = default;
 
 	int Init() override;
 	void Destroy() override;

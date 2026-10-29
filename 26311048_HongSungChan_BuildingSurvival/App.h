@@ -46,6 +46,8 @@ public:
 	virtual int Update();
 
 	int Run();
+
+	GraphicEngine::GameWindow GetGameWindow() const { return m_gameWindow; };
 };
 
 extern App* g_pApp;

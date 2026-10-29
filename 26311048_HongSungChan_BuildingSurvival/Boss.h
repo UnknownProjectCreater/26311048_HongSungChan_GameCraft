@@ -1,5 +1,7 @@
 #pragma once
-class Boss
-{
-};
+#include "Entity.h"
 
+class Boss : public Entity
+{
+
+};

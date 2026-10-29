@@ -7,11 +7,11 @@ class GraphicEngine
 public:
 	struct GameWindow
 	{
-		int x, y;
-		int screenWidth, screenHeight;
-		CSTR screenName;
-		bool bWindowed;
-		float screenScale;
+		int m_x, m_y;
+		int m_screenWidth, m_screenHeight;
+		CSTR m_screenName;
+		bool m_bWindowed;
+		float m_screenScale;
 	};
 
 	int Init(GameWindow* window);
