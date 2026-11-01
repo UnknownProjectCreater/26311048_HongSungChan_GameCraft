@@ -1,13 +1,18 @@
 #include "SceneBegin.h"
+#include "GameInput.h"
+#include "App.h"
+
+extern App* g_pApp;
 
 SceneBegin::SceneBegin()
 {
-	m_sceneType = GamePhase::BEGIN;
-	m_font1 = g2_FontCreate("깍두기 도면체", 20);
+
 }
 
 int SceneBegin::Init()
 {
+	m_sceneType = GamePhase::BEGIN;
+
 	return 0;
 }
 
@@ -16,19 +21,18 @@ void SceneBegin::Destroy()
 	
 }
 
-int SceneBegin::Render()
+int SceneBegin::Render(const Camera& camera)
 {
-	g2_FontDrawText(m_font1, { 10, 40 }, 0xFFFFFFFF, "Mouse: %d, %d", g2_GetMouseX(), g2_GetMouseY());
-
 	return 0;
 }
 
-int SceneBegin::Update()
+int SceneBegin::Update(float deltaTime)
 {
-	const KEYCODE* keys = g2_GetKeyboard();
-
-	if (keys[VK_SPACE] == EINPUT_DOWN)
-		g_pApp->ChageScene(GamePhase::START);
+	auto keyEvent = GetGameInput()->GetKeyState(VK_SPACE);
+	if (keyEvent == EINPUT_DOWN)
+	{
+		g_pApp->ChageScene(GamePhase::PLAY);
+	}
 
 	return 0;
 }

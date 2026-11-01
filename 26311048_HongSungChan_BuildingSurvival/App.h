@@ -5,8 +5,12 @@
 #include "Scene.h"
 #include "Time.h"
 #include "GraphicEngine.h"
+#include "GameManager.h"
+#include "AnimationManager.h"
 
+class TextureManager;
 class GameInput;
+class GameManager;
 class Scene;
 
 class App
@@ -19,22 +23,25 @@ protected:
 		1920,
 		1080,
 		"Hallo Welt",
-		true,
+		false,
 		1.0f
 	};
 
-	GraphicEngine m_gameGraphicEngine	{};
-	GameInput* m_pGameInput				{};
-	Scene* m_pCurrentScene				{};
-	Time m_gameTime						{};
+	GraphicEngine m_gameGraphicEngine;
+	Time m_gameTime;
+	GameManager* m_pGameManager;
+	GameInput* m_pGameInput;
+	Scene* m_pCurrentScene;
+	TextureManager* m_textureManager;
+	Camera* m_pCamera;	// Temporary
 
 	std::unordered_map<GamePhase, Scene*> m_scenes;
 
 public:
 	void ChageScene(GamePhase nextScene);
-	bool m_sceneChanged;
-	GamePhase m_sceneCurrent	{};
-	GamePhase m_sceneNext		{};
+	bool m_sceneChanged = false;
+	GamePhase m_sceneCurrent;
+	GamePhase m_sceneNext;
 
 public:
 	App();
@@ -42,12 +49,17 @@ public:
 
 	virtual int Init();
 	virtual void Destroy();
-	virtual int Render();
-	virtual int Update();
+	virtual int Render(const Camera& camera);
+	virtual int Update(float deltaTime);
 
 	int Run();
 
 	GraphicEngine::GameWindow GetGameWindow() const { return m_gameWindow; };
+	GameManager* GetGameManager() const { return m_pGameManager; };
+	const Camera& GetCamera() const { return *m_pCamera; };
+
+	void UpdateTime() { m_gameTime.Update(); };
+	float GetDeltaTime() const { return (float)m_gameTime.GetDeltaTime(); };
 };
 
 extern App* g_pApp;

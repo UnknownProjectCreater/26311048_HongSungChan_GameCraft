@@ -1,17 +1,17 @@
 #include <glc2d.h>
 
 #if defined(_DEBUG)
-    #if defined(_M_X64)
-        #pragma comment(lib, "glc2d_x64_debug.lib")
-    #elif defined(_M_IX86)
-        #pragma comment(lib, "glc2d_win32_debug.lib")
-    #endif
+#if defined(_M_X64)
+#pragma comment(lib, "glc2d_x64_debug.lib")
+#elif defined(_M_IX86)
+#pragma comment(lib, "glc2d_win32_debug.lib")
+#endif
 #else
-    #if defined(_M_X64)
-        #pragma comment(lib, "glc2d_x64_release.lib")
-    #elif defined(_M_IX86)
-        #pragma comment(lib, "glc2d_win32_release.lib")
-    #endif
+#if defined(_M_X64)
+#pragma comment(lib, "glc2d_x64_release.lib")
+#elif defined(_M_IX86)
+#pragma comment(lib, "glc2d_win32_release.lib")
+#endif
 #endif
 
 #include <stdio.h>
@@ -20,12 +20,14 @@
 
 int GraphicEngine::Update()
 {
-    return g_pApp->Update();
+    g_pApp->UpdateTime();
+
+    return g_pApp->Update(g_pApp->GetDeltaTime());
 }
 
 int GraphicEngine::Render()
 {
-    return g_pApp->Render();
+    return g_pApp->Render(g_pApp->GetCamera());
 }
 
 int GraphicEngine::Init(GameWindow* window)
@@ -37,29 +39,29 @@ int GraphicEngine::Init(GameWindow* window)
     g2_SetFrameMove(Update);
     g2_SetRender(Render);
 
-	hr = g2_CreateWin(window->x,
-                      window->y,
-                      window->screenWidth,
-                      window->screenHeight,
-                      window->screenName,
-                      window->bWindowed,
-                      window->screenScale);
+    hr = g2_CreateWin(window->m_x,
+        window->m_y,
+        window->m_screenWidth,
+        window->m_screenHeight,
+        window->m_screenName,
+        window->m_bWindowed,
+        window->m_screenScale);
 
     if (0 > hr)
         return -2;
 
     printf("Starting ...\n\n");
 
-	return 0;
+    return 0;
 }
 
 void GraphicEngine::Destroy()
 {
-	g2_DestroyWin();
+    g2_DestroyWin();
 }
 
 int GraphicEngine::Run()
 {
-	auto r = g2_Run();
-	return r;
+    auto r = g2_Run();
+    return r;
 }

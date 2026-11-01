@@ -1,7 +1,8 @@
 #include "App.h"
 #include "GameInput.h"
+#include "TextureManager.h"
 #include "SceneBegin.h"
-#include "SceneStart.h"
+#include "ScenePlay.h"
 
 App* g_pApp;
 
@@ -15,10 +16,12 @@ App::App()
 {
 	g_pApp = this;
 	m_pGameInput = new GameInput;
+	m_pGameManager = new GameManager;
+	m_textureManager = new TextureManager;
+	m_pCamera = new Camera((float)m_gameWindow.m_screenWidth, (float)m_gameWindow.m_screenHeight);
 
 	m_scenes[GamePhase::BEGIN] = new SceneBegin;
-	m_scenes[GamePhase::START] = new SceneStart;
-	//m_scenes[GamePhase::PLAY] = new 
+	m_scenes[GamePhase::PLAY] = new ScenePlay;
 	//m_scenes[GamePhase::RESULT] = new 
 
 	m_pCurrentScene = m_scenes[GamePhase::BEGIN];
@@ -26,6 +29,7 @@ App::App()
 
 App::~App()
 {
+	Destroy();
 }
 
 int App::Init()
@@ -41,18 +45,23 @@ int App::Init()
 
 	// Init Object
 	// Init Rendering
-	
+
 	if (0 > m_pGameInput->Init())
 	{
 		Destroy();
-		return -1;
+		return -2;
 	}
 
-	m_pCurrentScene = new Scene;
+	if (0 > m_textureManager->Init())
+	{
+		Destroy();
+		return -4;
+	}
+
 	if (0 > m_pCurrentScene->Init())
 	{
 		Destroy();
-		return -1;
+		return -3;
 	}
 
 	return 0;
@@ -66,10 +75,22 @@ void App::Destroy()
 		m_pGameInput = nullptr;
 	}
 
-	if (m_pCurrentScene)
+	if (m_pGameManager)
 	{
-		delete m_pCurrentScene;
-		m_pCurrentScene = nullptr;
+		delete m_pGameManager;
+		m_pGameManager = nullptr;
+	}
+
+	if (m_textureManager)
+	{
+		delete m_textureManager;
+		m_textureManager = nullptr;
+	}
+
+	if (m_pCamera)
+	{
+		delete m_pCamera;
+		m_pCamera = nullptr;
 	}
 
 	for (const auto& [id, scene] : m_scenes)
@@ -79,11 +100,12 @@ void App::Destroy()
 	m_scenes.clear();
 }
 
-int App::Update()
+int App::Update(float deltaTime)
 {
 	if (m_sceneChanged)
 	{
 		m_pCurrentScene->Destroy();
+		m_pGameManager->DestroySceneObjects();
 
 		m_sceneChanged = false;
 		m_sceneCurrent = m_sceneNext;
@@ -92,26 +114,24 @@ int App::Update()
 		m_pCurrentScene->Init();
 	}
 
-	m_gameTime.Update();
-
 	if (0 > m_pGameInput->Update())
 		return -1;
 
-	if (0 > m_pCurrentScene->Update())
+	if (0 > m_pCurrentScene->Update(deltaTime))
 		return -1;
-	
+
 	// Game UI Update
 	// GameObject Update
 
 	return 0;
 }
 
-int App::Render()
+int App::Render(const Camera& camera)
 {
 	// About Scene
 	// GameObject Render
 	// Game UI Render
-	if (0 > m_pCurrentScene->Render())
+	if (0 > m_pCurrentScene->Render(camera))
 	{
 		return -1;
 	}

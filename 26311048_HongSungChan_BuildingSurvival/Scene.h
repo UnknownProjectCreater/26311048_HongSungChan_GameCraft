@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
-#include "App.h"
+#include "Camera.h"
+#include "glc2d.h"
 
 enum class GamePhase
 {
@@ -18,11 +19,10 @@ protected:
 
 public:
 	Scene();
+	virtual ~Scene() = default;
 
 	virtual int Init();
 	virtual void Destroy();
-	virtual int Render();
-	virtual int Update();
-
-	
+	virtual int Render(const Camera& camera);
+	virtual int Update(float deltaTime);
 };

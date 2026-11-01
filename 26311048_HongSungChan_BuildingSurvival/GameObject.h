@@ -4,6 +4,9 @@
 #include "glc2d.h"
 #include "TextureManager.h"
 
+class GameObject;
+class Camera;
+
 enum class CollisionDirection
 {
 	Left,
@@ -19,12 +22,6 @@ enum class Tag
 	Enemy,
 	Ground,
 	Obstacle
-};
-
-struct Texture
-{
-	VEC2 m_scaling;
-	int m_texture;
 };
 
 struct CollisionInfo
@@ -50,26 +47,28 @@ protected:
 	bool m_isTrigger;
 
 public:
+	virtual ~GameObject() = default;
+
 	std::unordered_map<GameObject*, CollisionInfo> m_colliders;
 	std::unordered_map<GameObject*, CollisionInfo> m_previousColliders;
 
 	std::string m_name;
 	Texture m_image;
 
-	virtual int Init(TextureType textureId);
+	virtual int Init(const std::string& key);
 	virtual int Update(float deltaTime) = 0;
-	virtual int Render() = 0;
+	virtual int Render(const Camera& camera) = 0;
 	virtual int Destroy();
 
-	virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
-	virtual void OnCollisionStay(const CollisionInfo& info) = 0;
-	virtual void OnCollisionExit(const CollisionInfo& info) = 0;
+	//virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
+	//virtual void OnCollisionStay(const CollisionInfo& info) = 0;
+	//virtual void OnCollisionExit(const CollisionInfo& info) = 0;
 
-	void SetColliderSize();
+	//void SetColliderSize();
 
-	void BeginCollisionUpdate();
-	void AddCollider(GameObject* other, CollisionDirection direction);
-	void ProcessCollision();
+	//void BeginCollisionUpdate();
+	//void AddCollider(GameObject* other, CollisionDirection direction);
+	//void ProcessCollision();
 
 	bool IsColliding() const { return !m_colliders.empty(); };
 
@@ -94,7 +93,7 @@ public:
 	void SetActive(const bool isActive) { m_isActive = isActive; };
 
 	int GetTexture() const { return m_image.m_texture; };
-	void SetTexture(const TextureType textureId);
+	void SetTexture(const std::string& key);
 
 	VEC2 GetScaling() const { return m_image.m_scaling; };
 	void SetScaling(const VEC2& scale) { m_image.m_scaling = scale; };

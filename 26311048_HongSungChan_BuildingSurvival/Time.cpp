@@ -9,7 +9,7 @@ Time::Time()
 
 	QueryPerformanceCounter((LARGE_INTEGER*)&lastTime);
 
-	timeScale = 1.0 / (long long)periodFrequency.QuadPart;
+	timeScale = 1.0 / (double)periodFrequency.QuadPart;
 }
 
 int Time::Init()
@@ -23,7 +23,7 @@ int Time::Update()
 {
 	QueryPerformanceCounter((LARGE_INTEGER*)&currentTime);
 
-	deltaTime = (long long)(currentTime.QuadPart - lastTime.QuadPart) * timeScale;
+	deltaTime = (double)(currentTime.QuadPart - lastTime.QuadPart) * timeScale;
 
 	lastTime = currentTime;
 
