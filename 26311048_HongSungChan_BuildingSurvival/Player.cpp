@@ -5,11 +5,23 @@ int Player::Init(const std::string& key)
 	if (0 > GameObject::Init(key))
 		return -1;
 
-	// Idle.png: 32x32, 2 frames per row (3rd column is a text label), row 0 = FRONT
-	if (0 > m_animator.Add("Idle", GetAnimationManager()->LoadClip(key, 32, 32, 2, 0.3f, true)))
-		return -1;
+	// One clip per direction: row = EntityDir. The last column of each sheet is a text label
+	for (int row = 0; row <= (int)EntityDir::LEFT; row++)
+	{
+		std::string suffix = "_" + std::to_string(row);
+
+		if (0 > m_animator.Add("Idle" + suffix, GetAnimationManager()->LoadClip("Player_Idle" + suffix, 32, 32, 2, 0.3f, true, row)))
+			return -1;
+		if (0 > m_animator.Add("Run" + suffix, GetAnimationManager()->LoadClip("Player_Walk" + suffix, 32, 32, 4, 0.1f, true, row)))
+			return -1;
+	}
 
 	return 0;
+}
+
+std::string Player::GetClipKey(const std::string& name) const
+{
+	return name + "_" + std::to_string((int)GetEntityDir());
 }
 
 void Player::ChangeState(State state)
@@ -20,10 +32,13 @@ void Player::ChangeState(State state)
 void Player::UpdateMoveState()
 {
 	VEC2 velocity = GetVelocity();
-	bool isMoving = velocity.x != 0.0f;
+	bool isMoving = velocity.x != 0.0f || velocity.y != 0.0f;
 
 	ChangeState(isMoving ? State::Run : State::Idle);
-	m_animator.Play(isMoving ? "Run" : "Idle");
+
+	// Only swap the sheet: SetTexture would also overwrite m_scaling
+	m_image.m_texture = GetTextureManager()->GetTexture(isMoving ? "Player_Walk" : "Player_Idle").m_texture;
+	m_animator.Play(GetClipKey(isMoving ? "Run" : "Idle"));
 }
 
 int Player::UpdateState(float deltaTime)
@@ -31,8 +46,6 @@ int Player::UpdateState(float deltaTime)
 	switch (m_state)
 	{
 	case State::Idle:
-		m_animator.Play("Idle");
-		break;
 	case State::Run:
 		UpdateMoveState();
 		break;

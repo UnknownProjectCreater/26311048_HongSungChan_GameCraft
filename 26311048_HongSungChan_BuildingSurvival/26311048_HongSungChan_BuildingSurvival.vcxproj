@@ -135,6 +135,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicEngine.cpp" />
+    <ClCompile Include="Zombie.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneBegin.cpp" />
@@ -154,7 +155,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicEngine.h" />
-    <ClInclude Include="Monster.h" />
+    <ClInclude Include="Zombie.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneBegin.h" />

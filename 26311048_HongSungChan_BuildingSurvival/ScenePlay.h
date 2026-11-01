@@ -6,6 +6,9 @@ class ScenePlay : public Scene
 {
 private:
 	Entity* m_player;
+	Entity* m_zombie;
+
+	void UpdatePlayerInput();
 
 public:
 	ScenePlay();

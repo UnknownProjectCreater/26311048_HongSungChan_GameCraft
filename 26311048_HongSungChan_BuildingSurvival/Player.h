@@ -17,6 +17,7 @@ private:
 	bool m_isInvincible = false;
 
 	void UpdateMoveState();
+	std::string GetClipKey(const std::string& name) const;
 
 protected:
 	int UpdateState(float deltaTime) override;

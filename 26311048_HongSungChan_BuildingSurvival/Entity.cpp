@@ -2,6 +2,8 @@
 
 int Entity::Update(float deltaTime)
 {
+	m_position += m_velocity * deltaTime;
+
 	UpdateState(deltaTime);
 	m_animator.Update(deltaTime);
 

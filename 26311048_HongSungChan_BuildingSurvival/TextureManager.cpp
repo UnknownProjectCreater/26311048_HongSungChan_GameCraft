@@ -9,11 +9,19 @@ TextureManager::TextureManager()
 
 int TextureManager::Init()
 {
+	//Player Animation
 	 if (0 > AddTexture("Player_Idle", "Resource/Character/Player/Idle.png"))
 		return -1;
 	 if (0 > AddTexture("Player_Death", "Resource/Character/Player/Death.png"))
 		 return -1;
 	 if (0 > AddTexture("Player_Walk", "Resource/Character/Player/Walk.png"))
+		 return -1;
+
+	 if (0 > AddTexture("Zombie_Idle", "Resource/Character/Zombie/Idle.png"))
+		 return -1;
+	 if (0 > AddTexture("Zombie_Death", "Resource/Character/Zombie/Death.png"))
+		 return -1;
+	 if (0 > AddTexture("Zombie_Walk", "Resource/Character/Zombie/Walk.png"))
 		 return -1;
 
 	return 0;
