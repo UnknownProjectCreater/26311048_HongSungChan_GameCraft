@@ -21,7 +21,8 @@ enum class Tag
 	Player,
 	Enemy,
 	Ground,
-	Obstacle
+	Obstacle,
+	Tile
 };
 
 struct CollisionInfo

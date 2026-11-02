@@ -1,6 +1,8 @@
 #include "App.h"
 #include "GameInput.h"
 #include "TextureManager.h"
+#include "SoundManager.h"
+#include "TileManager.h"
 #include "SceneBegin.h"
 #include "ScenePlay.h"
 
@@ -18,6 +20,8 @@ App::App()
 	m_pGameInput = new GameInput;
 	m_pGameManager = new GameManager;
 	m_textureManager = new TextureManager;
+	m_soundManager = new SoundManager;
+	m_tileManager = new TileManager;
 	m_pCamera = new Camera((float)m_gameWindow.m_screenWidth, (float)m_gameWindow.m_screenHeight);
 
 	m_scenes[GamePhase::BEGIN] = new SceneBegin;
@@ -58,6 +62,12 @@ int App::Init()
 		return -4;
 	}
 
+	if (0 > m_soundManager->Init())
+	{
+		Destroy();
+		return -5;
+	}
+
 	if (0 > m_pCurrentScene->Init())
 	{
 		Destroy();
@@ -85,6 +95,18 @@ void App::Destroy()
 	{
 		delete m_textureManager;
 		m_textureManager = nullptr;
+	}
+
+	if (m_soundManager)
+	{
+		delete m_soundManager;
+		m_soundManager = nullptr;
+	}
+
+	if (m_tileManager)
+	{
+		delete m_tileManager;
+		m_tileManager = nullptr;
 	}
 
 	if (m_pCamera)

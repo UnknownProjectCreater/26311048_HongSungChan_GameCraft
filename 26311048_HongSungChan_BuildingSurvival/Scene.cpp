@@ -7,7 +7,7 @@ Scene::Scene()
 
 int Scene::Init()
 {
-	m_font1 = g2_FontCreate("깍두기 도면체", 20);
+	m_font1 = g2_FontCreate("깍두기 도면체", 100);
 
 	return 0;
 }
@@ -24,5 +24,5 @@ int Scene::Render(const Camera& camera)
 
 void Scene::Destroy()
 {
-
+	g2_SoundStop(m_currentBGM);
 }

@@ -19,6 +19,8 @@ private:
 	void UpdateMoveState();
 	std::string GetClipKey(const std::string& name) const;
 
+	int m_footstepSound;
+
 protected:
 	int UpdateState(float deltaTime) override;
 

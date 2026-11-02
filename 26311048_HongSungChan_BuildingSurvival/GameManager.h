@@ -1,24 +1,27 @@
 #pragma once
 #include <vector>
 #include <unordered_map>
+#include <memory>
 #include "GameObject.h"
 
 class GameManager
 {
 private:
-	std::vector<GameObject*> m_sceneObjects;
-	std::vector<GameObject*> m_persistentObjects;
+	std::vector<std::unique_ptr<GameObject>> m_sceneObjects;
+	std::vector<std::unique_ptr<GameObject>> m_persistentObjects;
 
-	void DestroyObjects(std::vector<GameObject*>& objects);
+	void DestroyObjects(std::vector<std::unique_ptr<GameObject>>& objects);
 
 	template<typename T>
-	T* CreateObject(std::vector<GameObject*>& objects)
+	T* CreateObject(std::vector<std::unique_ptr<GameObject>>& objects)
 	{
-		T* object = new T();
-		object->SetActive(true);
-		objects.push_back(object);
+		auto object = std::make_unique<T>();
+		T* observer = object.get();
 
-		return object;
+		observer->SetActive(true);
+		objects.push_back(std::move(object));
+
+		return observer;
 	}
 
 public:

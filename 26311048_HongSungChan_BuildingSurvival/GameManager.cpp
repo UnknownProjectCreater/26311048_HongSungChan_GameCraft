@@ -28,13 +28,10 @@ int GameManager::Render(const Camera& camera)
 	return 0;
 }
 
-void GameManager::DestroyObjects(std::vector<GameObject*>& objects)
+void GameManager::DestroyObjects(std::vector<std::unique_ptr<GameObject>>& objects)
 {
-	for (GameObject* object : objects)
-	{
+	for (const auto& object : objects)
 		object->Destroy();
-		delete object;
-	}
 
 	objects.clear();
 }

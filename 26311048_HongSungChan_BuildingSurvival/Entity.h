@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "AnimationManager.h"
+#include "SoundManager.h"
 #include "glc2d.h"
 
 enum class EntityDir

@@ -2,11 +2,26 @@
 #include "GameInput.h"
 #include "Player.h"
 #include "Zombie.h"
+#include "TileManager.h"
 #include "App.h"
 
 extern App* g_pApp;
 
 static const float PLAYER_SPEED = 200.0f;
+
+static const int MAP_WIDTH = 24;
+static const int MAP_HEIGHT = 14;
+static const float TILE_SIZE = 80.0f;
+
+static int CreateMap()
+{
+	VEC2 startPos(-MAP_WIDTH * TILE_SIZE / 2, -MAP_HEIGHT * TILE_SIZE / 2);
+
+	if (0 > GetTileManager()->CreateTiles(MAP_WIDTH, MAP_HEIGHT, TILE_SIZE, "Tile_Floor", startPos))
+		return -1;
+
+	return 0;
+}
 
 bool IsKeyHeld(KEYCODE keyCode)
 {
@@ -22,6 +37,14 @@ ScenePlay::ScenePlay()
 int ScenePlay::Init()
 {
 	m_sceneType = GamePhase::PLAY;
+
+	m_currentBGM = GetSoundManager()->GetSound("Bgm_Wave");
+	g2_SoundPlay(m_currentBGM, true);
+
+	m_font1 = g2_FontCreate("깍두기 도면체", 100);
+
+	if (0 > CreateMap())
+		return -1;
 
 	m_player = g_pApp->GetGameManager()->CreateSceneObject<Player>();
 	if (0 > m_player->Init("Player_Idle"))
@@ -44,11 +67,17 @@ void ScenePlay::Destroy()
 {
 	m_player = nullptr;
 	m_zombie = nullptr;
+
+	GetTileManager()->DestroyTiles();
 }
 
 int ScenePlay::Render(const Camera& camera)
 {
+	GetTileManager()->Render(camera);
 	g_pApp->GetGameManager()->Render(camera);
+
+	//VEC2i position{ 10, 10 };
+	//g2_FontDrawText(m_font1, position, 0xFFFFFFFF, "Press ESC to Exit");
 
 	return 0;
 }
@@ -58,6 +87,12 @@ int ScenePlay::Update(float deltaTime)
 	UpdatePlayerInput();
 
 	g_pApp->GetGameManager()->Update(g_pApp->GetDeltaTime());
+
+	//auto keyEvent = GetGameInput()->GetKeyState(VK_ESCAPE);
+	//if (keyEvent == EINPUT_DOWN)
+	//{
+
+	//}
 
 	return 0;
 }

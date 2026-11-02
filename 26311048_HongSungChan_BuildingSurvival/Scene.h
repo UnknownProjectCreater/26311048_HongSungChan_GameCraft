@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Camera.h"
+#include "SoundManager.h"
 #include "glc2d.h"
 
 enum class GamePhase
@@ -15,6 +16,7 @@ class Scene
 {
 protected:
 	int m_font1{ -1 };
+	int m_currentBGM;
 	GamePhase m_sceneType;
 
 public:

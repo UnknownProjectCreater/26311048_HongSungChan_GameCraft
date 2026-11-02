@@ -24,6 +24,12 @@ int TextureManager::Init()
 	 if (0 > AddTexture("Zombie_Walk", "Resource/Character/Zombie/Walk.png"))
 		 return -1;
 
+	 //Tile
+	 if (0 > AddTexture("Tile_Floor", "Resource/Sprites/Tiles/tile_0246.png"))
+		 return -1;
+	 if (0 > AddTexture("Tile_FloorCracked", "Resource/Sprites/Tiles/tile_0072.png"))
+		 return -1;
+
 	return 0;
 }
 
