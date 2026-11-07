@@ -53,14 +53,14 @@ public:
 
 	virtual int Init();
 	virtual void Destroy();
-	virtual int Render(const Camera& camera);
+	virtual int Render(Camera& camera);
 	virtual int Update(float deltaTime);
 
 	int Run();
 
 	GraphicEngine::GameWindow GetGameWindow() const { return m_gameWindow; };
 	GameManager* GetGameManager() const { return m_pGameManager; };
-	const Camera& GetCamera() const { return *m_pCamera; };
+	Camera& GetCamera() const { return *m_pCamera; };
 
 	void UpdateTime() { m_gameTime.Update(); };
 	float GetDeltaTime() const { return (float)m_gameTime.GetDeltaTime(); };

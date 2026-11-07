@@ -26,7 +26,7 @@ void SceneBegin::Destroy()
 	g2_SoundStop(m_currentBGM);
 }
 
-int SceneBegin::Render(const Camera& camera)
+int SceneBegin::Render(Camera& camera)
 {
 	VEC2i position{ 10, 10 };
 	g2_FontDrawText(m_font1, position, 0xFFFFFFFF, "Press SPACE");

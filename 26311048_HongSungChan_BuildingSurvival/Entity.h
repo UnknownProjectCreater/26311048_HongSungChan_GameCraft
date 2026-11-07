@@ -28,7 +28,7 @@ protected:
 
 public:
 	int Update(float deltaTime) override;
-	int Render(const Camera& camera) override;
+	int Render(Camera& camera) override;
 
 	VEC2 GetVelocity() const { return m_velocity; };
 	void SetVelocity(const VEC2& vel) { m_velocity = vel; };

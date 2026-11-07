@@ -58,7 +58,7 @@ public:
 
 	virtual int Init(const std::string& key);
 	virtual int Update(float deltaTime) = 0;
-	virtual int Render(const Camera& camera) = 0;
+	virtual int Render(Camera& camera) = 0;
 	virtual int Destroy();
 
 	//virtual void OnCollisionEnter(const CollisionInfo& info) = 0;

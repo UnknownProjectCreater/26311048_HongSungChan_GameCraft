@@ -71,8 +71,10 @@ void ScenePlay::Destroy()
 	GetTileManager()->DestroyTiles();
 }
 
-int ScenePlay::Render(const Camera& camera)
+int ScenePlay::Render(Camera& camera)
 {
+	camera.Follow(m_player->GetPosition());
+
 	GetTileManager()->Render(camera);
 	g_pApp->GetGameManager()->Render(camera);
 

@@ -17,7 +17,7 @@ int Scene::Update(float deltaTime)
 	return 0;
 }
 
-int Scene::Render(const Camera& camera)
+int Scene::Render(Camera& camera)
 {
 	return 0;
 }

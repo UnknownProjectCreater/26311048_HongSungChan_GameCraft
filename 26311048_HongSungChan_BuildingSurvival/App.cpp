@@ -148,7 +148,7 @@ int App::Update(float deltaTime)
 	return 0;
 }
 
-int App::Render(const Camera& camera)
+int App::Render(Camera& camera)
 {
 	// About Scene
 	// GameObject Render

@@ -10,13 +10,13 @@ int Entity::Update(float deltaTime)
 	return 0;
 }
 
-int Entity::Render(const Camera& camera)
+int Entity::Render(Camera& camera)
 {
 	const RECT& frame = m_animator.CurrentFrame();
 	if (IsRectEmpty(&frame))
 		return -1;
 
-	VEC2 screen = camera.WorldToScreen(m_position);
+	VEC2 screen = camera.WorldToScreen(this->GetPosition());
 
 	g2_Draw2D(m_image.m_texture, &frame, &screen, &m_image.m_scaling);
 

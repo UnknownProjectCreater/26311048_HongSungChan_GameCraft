@@ -25,6 +25,6 @@ public:
 
 	virtual int Init();
 	virtual void Destroy();
-	virtual int Render(const Camera& camera);
+	virtual int Render(Camera& camera);
 	virtual int Update(float deltaTime);
 };

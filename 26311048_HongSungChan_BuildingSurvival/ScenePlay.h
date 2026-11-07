@@ -16,6 +16,6 @@ public:
 
 	int Init() override;
 	void Destroy() override;
-	int Render(const Camera& camera) override;
+	int Render(Camera& camera) override;
 	int Update(float deltaTime) override;
 };

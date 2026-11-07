@@ -20,7 +20,7 @@ public:
 	int CreateTiles(int width, int height, float tileSize, const std::string& key, const VEC2& origin = VEC2(0.0f, 0.0f));
 	void DestroyTiles();
 
-	int Render(const Camera& camera);
+	int Render(Camera& camera);
 
 	int SetTileTexture(int x, int y, const std::string& key);
 	Tile* GetTile(int x, int y) const;

@@ -28,7 +28,7 @@ public:
 	~GameManager();
 
 	int Update(float deltaTime);
-	int Render(const Camera& camera);
+	int Render(Camera& camera);
 
 	template <typename T>
 	T* CreateSceneObject() { return CreateObject<T>(m_sceneObjects); };

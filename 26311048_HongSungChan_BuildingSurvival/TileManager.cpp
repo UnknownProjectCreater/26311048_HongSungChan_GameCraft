@@ -51,7 +51,7 @@ void TileManager::DestroyTiles()
 	m_height = 0;
 }
 
-int TileManager::Render(const Camera& camera)
+int TileManager::Render(Camera& camera)
 {
 	for (const auto& tile : m_tiles)
 		tile->Render(camera);

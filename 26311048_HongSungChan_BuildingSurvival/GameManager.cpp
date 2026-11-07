@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "GameManager.h"
 
 GameManager::~GameManager()
@@ -17,13 +18,20 @@ int GameManager::Update(float deltaTime)
 	return 0;
 }
 
-int GameManager::Render(const Camera& camera)
+int GameManager::Render(Camera& camera)
 {
-	for (const auto& object : m_sceneObjects)
-		object->Render(camera);
+	std::vector<GameObject*> m_renderObjects{};
 
-	for (const auto& object : m_persistentObjects)
-		object->Render(camera);
+	m_renderObjects.reserve(m_sceneObjects.size() + m_persistentObjects.size());
+
+	for (auto& obj : m_sceneObjects) m_renderObjects.push_back(obj.get());
+	for (auto& obj : m_persistentObjects) m_renderObjects.push_back(obj.get());
+
+	std::sort(m_renderObjects.begin(), m_renderObjects.end(), [](GameObject* a, GameObject* b) {return a->GetPosition().y < b->GetPosition().y;});
+
+	for (auto* obj : m_renderObjects) {
+		obj->Render(camera);
+	}
 
 	return 0;
 }
