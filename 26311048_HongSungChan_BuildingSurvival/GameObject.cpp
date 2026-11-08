@@ -18,3 +18,17 @@ void GameObject::SetTexture(const std::string& key)
 {
 	m_image = GetTextureManager()->GetTexture(key);
 }
+
+void GameObject::SetColliderSize(bool useCustomSize, VEC2 size)
+{
+	if (useCustomSize)
+	{
+		float width = g2_TextureWidth(m_image.m_texture);
+		float height = g2_TextureHeight(m_image.m_texture);
+		m_collider = { width, height };
+
+		return;
+	}
+
+	m_collider = size;
+}

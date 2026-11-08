@@ -1,5 +1,6 @@
 #include "App.h"
 #include "GameInput.h"
+#include "UIManager.h"
 #include "TextureManager.h"
 #include "SoundManager.h"
 #include "TileManager.h"
@@ -19,9 +20,10 @@ App::App()
 	g_pApp = this;
 	m_pGameInput = new GameInput;
 	m_pGameManager = new GameManager;
-	m_textureManager = new TextureManager;
-	m_soundManager = new SoundManager;
-	m_tileManager = new TileManager;
+	m_pUIManager = new UIManager;
+	m_pTextureManager = new TextureManager;
+	m_pSoundManager = new SoundManager;
+	m_pTileManager = new TileManager;
 	m_pCamera = new Camera((float)m_gameWindow.m_screenWidth, (float)m_gameWindow.m_screenHeight);
 
 	m_scenes[GamePhase::BEGIN] = new SceneBegin;
@@ -47,22 +49,19 @@ int App::Init()
 
 	m_gameTime.Init();
 
-	// Init Object
-	// Init Rendering
-
 	if (0 > m_pGameInput->Init())
 	{
 		Destroy();
 		return -2;
 	}
 
-	if (0 > m_textureManager->Init())
+	if (0 > m_pTextureManager->Init())
 	{
 		Destroy();
 		return -4;
 	}
 
-	if (0 > m_soundManager->Init())
+	if (0 > m_pSoundManager->Init())
 	{
 		Destroy();
 		return -5;
@@ -91,22 +90,28 @@ void App::Destroy()
 		m_pGameManager = nullptr;
 	}
 
-	if (m_textureManager)
+	if (m_pUIManager)
 	{
-		delete m_textureManager;
-		m_textureManager = nullptr;
+		delete m_pUIManager;
+		m_pUIManager = nullptr;
 	}
 
-	if (m_soundManager)
+	if (m_pTextureManager)
 	{
-		delete m_soundManager;
-		m_soundManager = nullptr;
+		delete m_pTextureManager;
+		m_pTextureManager = nullptr;
 	}
 
-	if (m_tileManager)
+	if (m_pSoundManager)
 	{
-		delete m_tileManager;
-		m_tileManager = nullptr;
+		delete m_pSoundManager;
+		m_pSoundManager = nullptr;
+	}
+
+	if (m_pTileManager)
+	{
+		delete m_pTileManager;
+		m_pTileManager = nullptr;
 	}
 
 	if (m_pCamera)

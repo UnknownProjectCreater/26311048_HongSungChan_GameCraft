@@ -33,8 +33,17 @@ struct CollisionInfo
 
 struct Collider
 {
-	int m_width;
-	int m_height;
+	float x = 0.0f;
+	float y = 0.0f;
+
+	operator VEC2() const { return VEC2(x, y); };
+	Collider& operator=(const VEC2& size)
+	{
+		x = size.x;
+		y = size.y;
+
+		return *this;
+	}
 };
 
 class GameObject
@@ -61,22 +70,22 @@ public:
 	virtual int Render(Camera& camera) = 0;
 	virtual int Destroy();
 
-	//virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
-	//virtual void OnCollisionStay(const CollisionInfo& info) = 0;
-	//virtual void OnCollisionExit(const CollisionInfo& info) = 0;
+	virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
+	virtual void OnCollisionStay(const CollisionInfo& info) = 0;
+	virtual void OnCollisionExit(const CollisionInfo& info) = 0;
 
-	//void SetColliderSize();
+	void SetColliderSize(bool useCustomSize, VEC2 size = {0, 0});
 
-	//void BeginCollisionUpdate();
-	//void AddCollider(GameObject* other, CollisionDirection direction);
-	//void ProcessCollision();
+	void BeginCollisionUpdate();
+	void AddCollider(GameObject* other, CollisionDirection direction);
+	void ProcessCollision();
 
 	bool IsColliding() const { return !m_colliders.empty(); };
 
 	float GetLeft() const { return m_position.x; };
-	float GetRight() const { return m_position.x + m_collider.m_width; };
+	float GetRight() const { return m_position.x + m_collider.x; };
 	float GetTop() const { return m_position.y; };
-	float GetBottom() const { return m_position.y + m_collider.m_height; };
+	float GetBottom() const { return m_position.y + m_collider.y; };
 
 	VEC2 GetPosition() const { return m_position; };
 	void SetPosition(const VEC2& pos) { m_position = pos; };

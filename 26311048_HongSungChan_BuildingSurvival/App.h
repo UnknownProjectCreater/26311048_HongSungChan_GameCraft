@@ -8,6 +8,7 @@
 #include "GameManager.h"
 #include "AnimationManager.h"
 
+class UIManager;
 class TextureManager;
 class SoundManager;
 class TileManager;
@@ -34,9 +35,10 @@ protected:
 	GameManager* m_pGameManager;
 	GameInput* m_pGameInput;
 	Scene* m_pCurrentScene;
-	TextureManager* m_textureManager;
-	SoundManager* m_soundManager;
-	TileManager* m_tileManager;
+	UIManager* m_pUIManager;
+	TextureManager* m_pTextureManager;
+	SoundManager* m_pSoundManager;
+	TileManager* m_pTileManager;
 	Camera* m_pCamera;
 
 	std::unordered_map<GamePhase, Scene*> m_scenes;
