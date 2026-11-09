@@ -3,8 +3,27 @@
 int Tile::Init(const std::string& key)
 {
 	SetTag(Tag::Tile);
+	SetTileType(TileType::None);
 
 	return GameObject::Init(key);
+}
+
+void Tile::SetTileType(TileType type)
+{
+	tileType = type;
+
+	switch (type)
+	{
+	case TileType::None:
+		cost = 1;
+		break;
+	case TileType::Obstacle:
+		cost = 5;
+		break;
+	case TileType::Structure:
+		cost = 10;
+		break;
+	}
 }
 
 int Tile::Update(float deltaTime)

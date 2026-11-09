@@ -1,7 +1,7 @@
 #pragma once
-#include "Entity.h"
+#include "Monster.h"
 
-class Zombie : public Entity
+class Zombie : public Monster
 {
 public:
 	enum class State

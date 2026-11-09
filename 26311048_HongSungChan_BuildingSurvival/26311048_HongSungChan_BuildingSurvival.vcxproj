@@ -132,6 +132,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FindPath.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FindPath.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />

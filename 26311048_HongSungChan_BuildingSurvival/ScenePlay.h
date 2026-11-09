@@ -2,11 +2,14 @@
 #include "Scene.h"
 #include "Entity.h"
 
+class Player;
+class Zombie;
+
 class ScenePlay : public Scene
 {
 private:
-	Entity* m_player;
-	Entity* m_zombie;
+	Player* m_player;
+	Zombie* m_zombie;
 
 	void UpdatePlayerInput();
 

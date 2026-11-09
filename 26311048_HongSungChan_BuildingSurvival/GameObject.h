@@ -70,15 +70,15 @@ public:
 	virtual int Render(Camera& camera) = 0;
 	virtual int Destroy();
 
-	virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
-	virtual void OnCollisionStay(const CollisionInfo& info) = 0;
-	virtual void OnCollisionExit(const CollisionInfo& info) = 0;
+	//virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
+	//virtual void OnCollisionStay(const CollisionInfo& info) = 0;
+	//virtual void OnCollisionExit(const CollisionInfo& info) = 0;
 
 	void SetColliderSize(bool useCustomSize, VEC2 size = {0, 0});
 
-	void BeginCollisionUpdate();
-	void AddCollider(GameObject* other, CollisionDirection direction);
-	void ProcessCollision();
+	//void BeginCollisionUpdate();
+	//void AddCollider(GameObject* other, CollisionDirection direction);
+	//void ProcessCollision();
 
 	bool IsColliding() const { return !m_colliders.empty(); };
 

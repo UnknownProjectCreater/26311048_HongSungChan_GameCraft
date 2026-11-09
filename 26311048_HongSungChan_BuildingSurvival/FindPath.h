@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <limits>
+#include "Tile.h"
 
 class FindPath
 {
@@ -15,11 +16,9 @@ private:
 		}
 	};
 
-	const int INF = INFINITY;
-	int nodeCount;
-	int connectionCount;
-	int startNode;
+	static constexpr int INF = (std::numeric_limits<int>::max)();
 
 public:
-	FindPath(int nodeCount, int connectionCount);
+	// Tiles from start to goal in order, empty when the goal can't be reached
+	std::vector<Tile> Search(const Tile& start, const Tile& goal) const;
 };

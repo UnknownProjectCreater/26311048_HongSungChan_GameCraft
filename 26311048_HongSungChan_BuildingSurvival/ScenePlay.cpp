@@ -7,17 +7,15 @@
 
 extern App* g_pApp;
 
-static const float PLAYER_SPEED = 200.0f;
-
-static const int MAP_WIDTH = 24;
-static const int MAP_HEIGHT = 14;
+static const int MAP_WIDTH = 10;
+static const int MAP_HEIGHT = 10;
 static const float TILE_SIZE = 80.0f;
 
 static int CreateMap()
 {
 	VEC2 startPos(-MAP_WIDTH * TILE_SIZE / 2, -MAP_HEIGHT * TILE_SIZE / 2);
 
-	if (0 > GetTileManager()->CreateTiles(MAP_WIDTH, MAP_HEIGHT, TILE_SIZE, "Tile_Floor", startPos))
+	if (0 > GetTileManager()->CreateTiles({ MAP_WIDTH, MAP_HEIGHT }, TILE_SIZE, "Tile_Floor", startPos))
 		return -1;
 
 	return 0;
@@ -51,14 +49,15 @@ int ScenePlay::Init()
 		return -1;
 
 	m_player->SetScaling(VEC2(5.0f, 5.0f));
-	m_player->SetPosition(VEC2(0.0f, 0.0f));
+	m_player->SetStartTile(GetTileManager()->GetTileIndex(MAP_WIDTH / 2, MAP_HEIGHT / 2));
 
 	m_zombie = g_pApp->GetGameManager()->CreateSceneObject<Zombie>();
 	if (0 > m_zombie->Init("Zombie_Idle"))
 		return -1;
 
 	m_zombie->SetScaling(VEC2(5.0f, 5.0f));
-	m_zombie->SetPosition(VEC2(100.0f, 0.0f));
+	m_zombie->SetStartTile(GetTileManager()->GetTileIndex(0, 0));
+	m_zombie->SetTarget(m_player);
 
 	return 0;
 }
@@ -87,36 +86,19 @@ int ScenePlay::Update(float deltaTime)
 
 	g_pApp->GetGameManager()->Update(g_pApp->GetDeltaTime());
 
-	//auto keyEvent = GetGameInput()->GetKeyState(VK_ESCAPE);
-	//if (keyEvent == EINPUT_DOWN)
-	//{
-
-	//}
-
 	return 0;
 }
 
 void ScenePlay::UpdatePlayerInput()
 {
-	VEC2 velocity(0.0f, 0.0f);
-
 	if (IsKeyHeld('W'))
-		velocity.y -= PLAYER_SPEED;
+		m_player->SetDirection(0, -1);
 	else if (IsKeyHeld('S'))
-		velocity.y += PLAYER_SPEED;
+		m_player->SetDirection(0, 1);
 	else if (IsKeyHeld('A'))
-		velocity.x -= PLAYER_SPEED;
+		m_player->SetDirection(-1, 0);
 	else if (IsKeyHeld('D'))
-		velocity.x += PLAYER_SPEED;
-
-	if (velocity.x > 0.0f)
-		m_player->SetEntityDir(EntityDir::RIGHT);
-	else if (velocity.x < 0.0f)
-		m_player->SetEntityDir(EntityDir::LEFT);
-	else if (velocity.y < 0.0f)
-		m_player->SetEntityDir(EntityDir::BACK);
-	else if (velocity.y > 0.0f)
-		m_player->SetEntityDir(EntityDir::FRONT);
-
-	m_player->SetVelocity(velocity);
+		m_player->SetDirection(1, 0);
+	else
+		m_player->SetDirection(0, 0);
 }

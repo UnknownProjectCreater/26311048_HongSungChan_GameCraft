@@ -5,7 +5,6 @@ int Zombie::Init(const std::string& key)
 	if (0 > GameObject::Init(key))
 		return -1;
 
-	// One clip per direction: row = EntityDir. The last column of each sheet is a text label
 	for (int row = 0; row <= (int)EntityDir::LEFT; row++)
 	{
 		std::string suffix = "_" + std::to_string(row);
@@ -36,7 +35,6 @@ void Zombie::UpdateMoveState()
 
 	ChangeState(isMoving ? State::Run : State::Idle);
 
-	// Only swap the sheet: SetTexture would also overwrite m_scaling
 	m_image.m_texture = GetTextureManager()->GetTexture(isMoving ? "Zombie_Walk" : "Zombie_Idle").m_texture;
 	m_animator.Play(GetClipKey(isMoving ? "Run" : "Idle"));
 }
