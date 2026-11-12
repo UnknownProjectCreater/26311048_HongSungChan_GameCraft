@@ -7,6 +7,8 @@ UIManager::UIManager()
     g_uiManager = this;
 }
 
+
+
 UIManager* GetUIManager()
 {
     return g_uiManager;

@@ -1,7 +1,7 @@
-#include "FindPath.h"
 #include <algorithm>
 #include <functional>
 #include <queue>
+#include "FindPath.h"
 #include "TileManager.h"
 
 static const int DIRECTION_R[4] = { -1, 1, 0, 0 };
@@ -23,6 +23,8 @@ std::vector<Tile> FindPath::Search(const Tile& start, const Tile& goal) const
 	std::vector<int> distance(tileCount, INF);
 	std::vector<int> previous(tileCount, -1);
 
+	// std::greater	   - descending order sorting
+	// priority_queue  - 
 	std::priority_queue<Node, std::vector<Node>, std::greater<Node>> openList;
 
 	distance[startIndex] = 0;

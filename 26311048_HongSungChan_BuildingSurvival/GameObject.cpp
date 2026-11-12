@@ -32,3 +32,39 @@ void GameObject::SetColliderSize(bool useCustomSize, VEC2 size)
 
 	m_collider = size;
 }
+
+void GameObject::BeginCollisionUpdate()
+{
+	m_previousColliders = std::move(m_currentColliders);
+	m_currentColliders.clear();
+}
+
+void GameObject::AddCollider(GameObject* other, CollisionDirection direction)
+{
+	if (m_currentColliders.find(other) != m_currentColliders.end())
+		return;
+
+	CollisionInfo info;
+
+	info.m_other = other;
+	info.m_collisionDir = direction;
+
+	m_currentColliders[other] = info;
+}
+
+void GameObject::ProcessCollision()
+{
+	for (const auto& collider : m_currentColliders)
+	{
+		if (m_previousColliders.find(collider.first) == m_previousColliders.end())
+			OnCollisionEnter(collider.second);
+		else
+			OnCollisionStay(collider.second);
+	}
+
+	for (const auto& previousCollider : m_previousColliders)
+	{
+		if (m_currentColliders.find(previousCollider.first) == m_currentColliders.end())
+			OnCollisionExit(previousCollider.second);
+	}
+}

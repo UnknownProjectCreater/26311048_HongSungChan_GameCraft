@@ -72,7 +72,6 @@ void Player::UpdateTileMove(float deltaTime)
 	SetVelocity(VEC2(direction[0] * PLAYER_SPEED, direction[1] * PLAYER_SPEED));
 }
 
-// m_position is the sprite's top-left corner: offset it so the character's feet (bottom of the frame) sit on the tile's center
 VEC2 Player::GetStandPosition(int tile) const
 {
 	VEC2 center = GetTileManager()->GetTileCenter(tile);

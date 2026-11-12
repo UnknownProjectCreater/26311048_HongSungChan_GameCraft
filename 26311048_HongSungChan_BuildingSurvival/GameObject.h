@@ -25,6 +25,13 @@ enum class Tag
 	Tile
 };
 
+enum class Layer
+{
+	Tile,
+	Player,
+	Bullat,
+};
+
 struct CollisionInfo
 {
 	GameObject* m_other = nullptr;
@@ -53,13 +60,14 @@ protected:
 	Collider m_collider;
 
 	Tag m_tag;
+	Layer m_layer;
 	bool m_isActive;
 	bool m_isTrigger;
 
 public:
 	virtual ~GameObject() = default;
 
-	std::unordered_map<GameObject*, CollisionInfo> m_colliders;
+	std::unordered_map<GameObject*, CollisionInfo> m_currentColliders;
 	std::unordered_map<GameObject*, CollisionInfo> m_previousColliders;
 
 	std::string m_name;
@@ -70,17 +78,17 @@ public:
 	virtual int Render(Camera& camera) = 0;
 	virtual int Destroy();
 
-	//virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
-	//virtual void OnCollisionStay(const CollisionInfo& info) = 0;
-	//virtual void OnCollisionExit(const CollisionInfo& info) = 0;
+	virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
+	virtual void OnCollisionStay(const CollisionInfo& info) = 0;
+	virtual void OnCollisionExit(const CollisionInfo& info) = 0;
 
 	void SetColliderSize(bool useCustomSize, VEC2 size = {0, 0});
 
-	//void BeginCollisionUpdate();
-	//void AddCollider(GameObject* other, CollisionDirection direction);
-	//void ProcessCollision();
+	void BeginCollisionUpdate();
+	void AddCollider(GameObject* other, CollisionDirection direction);
+	void ProcessCollision();
 
-	bool IsColliding() const { return !m_colliders.empty(); };
+	bool IsColliding() const { return !m_currentColliders.empty(); };
 
 	float GetLeft() const { return m_position.x; };
 	float GetRight() const { return m_position.x + m_collider.x; };
@@ -93,11 +101,17 @@ public:
 	Collider GetCollider() const { return m_collider; };
 	void SetCollider(const Collider& col) { m_collider = col; };
 
-	bool IsTrigger() const { return m_isTrigger;; };
+	bool IsTrigger() const { return m_isTrigger; };
 	void SetTrigger(const bool& isTrigger) { m_isTrigger = isTrigger; };
+
+	bool IsActive() const { return m_isActive; };
+	void SetActive(const bool& isActive) { m_isActive = isActive; };
 
 	Tag GetTag() const { return m_tag;; };
 	void SetTag(const Tag& tag) { m_tag = tag; };
+
+	Layer GetLayer() const { return m_layer;; };
+	void SetLayer(const Layer& layer) { m_layer = layer; };
 
 	bool IsActive() const { return m_isActive; };
 	void SetActive(const bool isActive) { m_isActive = isActive; };

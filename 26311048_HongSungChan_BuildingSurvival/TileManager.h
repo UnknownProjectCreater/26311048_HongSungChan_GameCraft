@@ -26,7 +26,6 @@ public:
 	Tile* GetTile(int x, int y) const;
 	Tile* GetTile(int index) const;
 
-	int AsignObjectToTile(VEC2 pos, TileType type);
 	int GetTileIndex(int x, int y) const;
 	VEC2 GetTileCenter(int index) const;
 	bool IsInLimit(const VEC2& position) const;

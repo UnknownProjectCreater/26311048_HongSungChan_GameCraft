@@ -31,7 +31,6 @@ int TileManager::CreateTiles(Map mapSize, float tileSize, const std::string& key
 				return -1;
 			}
 
-			tile->SetActive(true);
 			tile->SetPosition(VEC2(startPos.x + x * tileSize, startPos.y + y * tileSize));
 			tile->SetTileType(TileType::None);
 
@@ -95,18 +94,6 @@ Tile* TileManager::GetTile(int index) const
 		return nullptr;
 
 	return m_tiles[index].get();
-}
-
-int TileManager::AsignObjectToTile(VEC2 pos, TileType type)
-{
-	int index = pos.y * m_width + pos.x;
-
-	if (index < 0 || index >= m_tiles.size())
-		return -1;
-
-	m_tiles[index]->SetTileType(type);
-
-	return 0;
 }
 
 int TileManager::GetTileIndex(int x, int y) const

@@ -10,6 +10,8 @@ private:
 	std::vector<std::unique_ptr<GameObject>> m_sceneObjects;
 	std::vector<std::unique_ptr<GameObject>> m_persistentObjects;
 
+	std::vector<Layer, std::vector<Layer>> m_collisionMatrix;
+
 	void DestroyObjects(std::vector<std::unique_ptr<GameObject>>& objects);
 
 	template<typename T>
@@ -37,4 +39,7 @@ public:
 	T* CreatePersistentObject() { return CreateObject<T>(m_persistentObjects); };
 
 	void DestroySceneObjects();
+
+	void CheckCollision();
+	bool CheckAABBCollision(GameObject* a, GameObject* b);
 };

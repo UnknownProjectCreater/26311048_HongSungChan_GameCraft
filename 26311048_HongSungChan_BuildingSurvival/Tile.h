@@ -11,8 +11,7 @@ struct Map
 enum class TileType
 {
 	None,
-	Obstacle,
-	Structure
+	Obstacle
 };
 
 class Tile : public GameObject
