@@ -78,9 +78,9 @@ public:
 	virtual int Render(Camera& camera) = 0;
 	virtual int Destroy();
 
-	virtual void OnCollisionEnter(const CollisionInfo& info) = 0;
-	virtual void OnCollisionStay(const CollisionInfo& info) = 0;
-	virtual void OnCollisionExit(const CollisionInfo& info) = 0;
+	virtual void OnCollisionEnter(const CollisionInfo& info) {};
+	virtual void OnCollisionStay(const CollisionInfo& info) {};
+	virtual void OnCollisionExit(const CollisionInfo& info) {};
 
 	void SetColliderSize(bool useCustomSize, VEC2 size = {0, 0});
 
@@ -103,9 +103,6 @@ public:
 
 	bool IsTrigger() const { return m_isTrigger; };
 	void SetTrigger(const bool& isTrigger) { m_isTrigger = isTrigger; };
-
-	bool IsActive() const { return m_isActive; };
-	void SetActive(const bool& isActive) { m_isActive = isActive; };
 
 	Tag GetTag() const { return m_tag;; };
 	void SetTag(const Tag& tag) { m_tag = tag; };

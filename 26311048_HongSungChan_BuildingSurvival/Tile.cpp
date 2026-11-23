@@ -20,9 +20,6 @@ void Tile::SetTileType(TileType type)
 	case TileType::Obstacle:
 		cost = 5;
 		break;
-	case TileType::Structure:
-		cost = 10;
-		break;
 	}
 }
 

@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Bar.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicEngine.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Zombie.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -153,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="App.h" />
+    <ClInclude Include="Bar.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Entity.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicEngine.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Zombie.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Scene.h" />

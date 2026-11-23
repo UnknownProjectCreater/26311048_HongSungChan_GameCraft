@@ -8,8 +8,8 @@ private:
 	LARGE_INTEGER lastTime				{};
 	LARGE_INTEGER currentTime		{};
 
-	double timeScale;
-	double deltaTime{};
+	double m_timeScale;
+	double m_deltaTime{};
 public:
 	Time();
 

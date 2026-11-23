@@ -10,7 +10,7 @@ private:
 	std::vector<std::unique_ptr<GameObject>> m_sceneObjects;
 	std::vector<std::unique_ptr<GameObject>> m_persistentObjects;
 
-	std::vector<Layer, std::vector<Layer>> m_collisionMatrix;
+	std::unordered_map<Layer, std::vector<Layer>> m_collisionMatrix;
 
 	void DestroyObjects(std::vector<std::unique_ptr<GameObject>>& objects);
 
